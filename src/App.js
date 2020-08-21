@@ -6,28 +6,28 @@ import "./styles.css";
 
 function App() {
 
-const [repos, setProjects] = useState([]);
+const [repos, setRepos] = useState([]);
 
   useEffect(() => {
-    api.get('/projects').then(response => {
-      setProjects(response.data);
+    api.get('/repositories').then(response => {
+      setRepos(response.data);
     })
-  }, []);
+  }, [])
 
   async function handleAddRepository() {
-    const response = await api.post('projects', {
-      title: `repository`,
+    const response = await api.post('/repositories', {
+      title: `repository`
     });
 
-    setProjects([...repos, response.data]);
+    setRepos([...repos, response.data]);
   }
 
   async function handleRemoveRepository(id) {
-    await api.delete(`/projects/${id}`);
+    await api.delete(`/repositories/${id}`);
     
     const newRepo = repos.filter(repo => repo.id !== id);
 
-    setProjects(newRepo);
+    setRepos(newRepo);
   }
 
   return (
